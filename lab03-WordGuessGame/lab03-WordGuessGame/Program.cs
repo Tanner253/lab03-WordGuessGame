@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 
 namespace lab03_WordGuessGame
 {
@@ -30,9 +31,9 @@ namespace lab03_WordGuessGame
                 switch (decision)
                 {
                     case 1:
-                        ReadFile();
+                        string[] textFileWords = ReadFile();
 
-                        Console.WriteLine(RandomWordChooser(startingWords));
+                        Console.WriteLine(RandomWordChooser(textFileWords));
 
                         break;
                     case 2:
@@ -63,16 +64,32 @@ namespace lab03_WordGuessGame
 
             }
         }
-        public static void ReadFile()
+        public static string[] ReadFile()
+        {
+            string[] textFileWords;
+            using (StreamReader sr = new StreamReader(path))
+            {
+               textFileWords = File.ReadAllLines(path);
+
+               
+            }
+            return textFileWords;
+            
+          
+        }
+        public static void ReadFileAdminMode()
         {
             using (StreamReader sr = new StreamReader(path))
             {
                 string[] textFileWords = File.ReadAllLines(path);
-               
-                
+
+                foreach (var value in textFileWords)
+                {
+                    Console.WriteLine(value);
+                }
             }
-            
-          
+
+
         }
         public static void UpdateWordBank(string addedWord)
         {
@@ -96,18 +113,10 @@ namespace lab03_WordGuessGame
             return displayWord;
         }
 
-        public static string[] ReWriteFile(string[] startingWords, string input)
+       /* public static string[] ReWriteFile(string[] startingWords, string input)
         {
-            string[] newWordBank;
-            int whichIndex = Array.IndexOf(startingWords, input);
-            if ( Array.Exists(startingWords, element => element.Contains(input)))
-                {
-                
-                
-                }
-            
-            
         }
+        */
         public static void AdminMenu()
         {
             Console.WriteLine("1. View Current Word Bank");
@@ -121,8 +130,8 @@ namespace lab03_WordGuessGame
                 switch (decision)
                 {
                     case 1:
-                        Console.WriteLine("These are the current words in the Word Bank: ");
-                        
+                    Console.WriteLine("These are the current words in the Word Bank: ");
+                    ReadFileAdminMode();
                         
                         break;
 
