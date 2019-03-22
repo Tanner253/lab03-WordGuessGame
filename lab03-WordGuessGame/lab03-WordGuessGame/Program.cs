@@ -20,7 +20,7 @@ namespace lab03_WordGuessGame
                 WriteToFileMethod(startingWords);
             do
             {
-                //string addedWord;
+               
                 
                 Console.WriteLine("Welcome to the Word Guess Game!");
                 Console.WriteLine("1. Play game");
@@ -95,6 +95,19 @@ namespace lab03_WordGuessGame
             string displayWord = array[randomNumber];
             return displayWord;
         }
+
+        public static string[] ReWriteFile(string[] startingWords, string input)
+        {
+            string[] newWordBank;
+            int whichIndex = Array.IndexOf(startingWords, input);
+            if ( Array.Exists(startingWords, element => element.Contains(input)))
+                {
+                
+                
+                }
+            
+            
+        }
         public static void AdminMenu()
         {
             Console.WriteLine("1. View Current Word Bank");
@@ -125,7 +138,7 @@ namespace lab03_WordGuessGame
                     Console.WriteLine("You've selected to REMOVE a word to the Word Bank");
                     Console.WriteLine("");
                     Console.WriteLine("Please type the word you would like to REMOVE from the word bank");
-                    ReadFile();
+                    
                     
                     break;
 
