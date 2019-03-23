@@ -12,14 +12,18 @@ namespace lab03_WordGuessGame
 
         public static string path = ("../../../savedWords.txt");
         
-
+        //"Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" 
         public static void Main(string[] args)
         {
-            string[] startingWords = { "Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" };
+            string[] startingWords = { };
             WriteToFileMethod(startingWords);
             StartSequence(startingWords);
 
         }
+        /// <summary>
+        /// starts application from scratch
+        /// </summary>
+        /// <param name="array">word bank</param>
         public static void StartSequence(string[] array)
         {
             string[] startingWords = array;
@@ -66,6 +70,10 @@ namespace lab03_WordGuessGame
             }
 
         }
+        /// <summary>
+        /// writes each array index as a line in new txt file
+        /// </summary>
+        /// <param name="wordBank">word bank</param>
         public static void WriteToFileMethod(string[] wordBank)
         {
             using (StreamWriter sw = new StreamWriter(path))
@@ -80,6 +88,10 @@ namespace lab03_WordGuessGame
 
             }
         }
+        /// <summary>
+        /// reads each line of the text file and stores them in array
+        /// </summary>
+        /// <returns>word bank array</returns>
         public static string[] ReadFile()
         {
             string[] textFileWords;
@@ -93,6 +105,9 @@ namespace lab03_WordGuessGame
 
 
         }
+        /// <summary>
+        /// reads admin menu and prints all available options (see my word bank)
+        /// </summary>
         public static void ReadFileAdminMode()
         {
             using (StreamReader sr = new StreamReader(path))
@@ -107,6 +122,10 @@ namespace lab03_WordGuessGame
 
 
         }
+        /// <summary>
+        /// append a new element to the end of the txt file - adds word to wordbank
+        /// </summary>
+        /// <param name="addedWord"> new wordbank</param>
         public static void UpdateWordBank(string addedWord)
         {
             using (StreamWriter sw = File.AppendText(path))
@@ -117,6 +136,10 @@ namespace lab03_WordGuessGame
 
 
         }
+        /// <summary>
+        /// initializes the game logic
+        /// </summary>
+        /// <param name="word">a random word from wordbank for game to be played on</param>
         public static void PlayGame(string word)
         {
             int correctGuessCounter = 0;
@@ -154,6 +177,12 @@ namespace lab03_WordGuessGame
 
 
         }
+        /// <summary>
+        /// verifys that the input CHAR is present in the word the user is trying to guess
+        /// </summary>
+        /// <param name="letterGuess">char</param>
+        /// <param name="word">randomly displayed word</param>
+        /// <returns>true or false</returns>
         public static bool CorrectGuess(char letterGuess, char[] word)
         {
             bool wasCorrect = true;
@@ -171,6 +200,11 @@ namespace lab03_WordGuessGame
             return wasCorrect;
             
         }
+        /// <summary>
+        /// replaces letters in a char array with hidden  values
+        /// </summary>
+        /// <param name="array">word bank</param>
+        /// <returns>hidden array</returns>
         public static char[] HideLetters(char[] array)
         {
             char[] newArray = array;
@@ -182,6 +216,11 @@ namespace lab03_WordGuessGame
             return newArray;
             
         }
+        /// <summary>
+        /// handles choosing a random number == random word from word bank
+        /// </summary>
+        /// <param name="array">word bank</param>
+        /// <returns>1 word</returns>
         public static string RandomWordChooser(string[] array)
         {
             Random random = new Random();
@@ -189,10 +228,18 @@ namespace lab03_WordGuessGame
             string displayWord = array[randomNumber];
             return displayWord;
         }
+        /// <summary>
+        /// deletes txt file
+        /// </summary>
         public static void DeleteFile()
         {
             File.Delete(path);
         }
+        /// <summary>
+        /// finds and removes word from wordbank
+        /// </summary>
+        /// <param name="array">word bank</param>
+        /// <returns>new array with removed element</returns>
         public static string[] RemoveWord(string[] array)
         {
             string input = Console.ReadLine();
@@ -215,7 +262,9 @@ namespace lab03_WordGuessGame
             }
             return textFileWords;
         }
-      
+        /// <summary>
+        /// handles logic for admin menu
+        /// </summary>
         public static void AdminMenu()
         {
             Console.WriteLine("1. View Current Word Bank");
