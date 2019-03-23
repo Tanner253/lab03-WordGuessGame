@@ -38,7 +38,6 @@ Then select and open ```WordGue.sln```
 ##### Using the Application
 ![you can add words, delete words, view what words there are](/assets/capture2.JPG)
 
-
 ![play game!](/assets/capture3.JPG)
 ##### Application End
 ![how functionality works in game](/assets/capture4.JPG)
