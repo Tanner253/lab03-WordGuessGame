@@ -15,7 +15,7 @@ namespace lab03_WordGuessGame
         //"Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" 
         public static void Main(string[] args)
         {
-            string[] startingWords = { };
+            string[] startingWords = { "Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" };
             WriteToFileMethod(startingWords);
             StartSequence(startingWords);
 
