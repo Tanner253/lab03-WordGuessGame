@@ -144,7 +144,7 @@ namespace lab03_WordGuessGame
         {
             int correctGuessCounter = 0;
             int incorrectGuess = 0;
-            bool isGuessing = true;
+           
             string mysteryWord = word;
             char[] splitWord = mysteryWord.ToCharArray();
             char[] hiddenLetters = HideLetters(splitWord);
