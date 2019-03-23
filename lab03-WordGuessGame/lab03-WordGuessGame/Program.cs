@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
@@ -13,12 +14,15 @@ namespace lab03_WordGuessGame
 
         public static void Main(string[] args)
         {
-            StartSequence();
+            string[] startingWords = { "Biscuit", "Alpha", "Tarantula", "Rockstar", "Cookies", "Doggo" };
+            StartSequence(startingWords);
+            
+            WriteToFileMethod(startingWords);
         }
-        public static void StartSequence()
+        public static void StartSequence(string[] array)
         {
-                string[] startingWords = { "Biscuit", "Alpha", "Tarantula", "Rockstar", "Cookies", "Doggo" };
-                WriteToFileMethod(startingWords);
+            string[] startingWords = array;
+                
             do
             {
                
@@ -45,10 +49,6 @@ namespace lab03_WordGuessGame
                         break;
                 }
 
-               /* Console.WriteLine("add a word");
-                addedWord = Console.ReadLine();
-                UpdateWordBank(addedWord);
-                ReadFile(); */
             }
             while (gameRunning);
 
@@ -112,11 +112,33 @@ namespace lab03_WordGuessGame
             string displayWord = array[randomNumber];
             return displayWord;
         }
-
-       /* public static string[] ReWriteFile(string[] startingWords, string input)
+        public static void DeleteFile()
         {
+            File.Delete(path);
         }
-        */
+        public static string[] RemoveWord(string[] array)
+        {
+            string input = Console.ReadLine();
+            string[] textFileWords = new string[array.Length ];
+            bool flag = false;
+            for(int i = 0; i < array.Length; i++)
+            {
+                if(array[i] == input && !flag)
+                {
+                    flag = true;
+                }else if (array[i] != input)
+                {
+                    textFileWords[i] = array[i];
+                }
+                else if (flag) 
+                {
+                    textFileWords[i - 1] = array[i];
+                }
+               
+            }
+            return textFileWords;
+        }
+      
         public static void AdminMenu()
         {
             Console.WriteLine("1. View Current Word Bank");
@@ -147,12 +169,19 @@ namespace lab03_WordGuessGame
                     Console.WriteLine("You've selected to REMOVE a word to the Word Bank");
                     Console.WriteLine("");
                     Console.WriteLine("Please type the word you would like to REMOVE from the word bank");
+                    string[] currentArray = ReadFile();
+                    string[] textFileWords = RemoveWord(currentArray);
+                    DeleteFile();
+                    WriteToFileMethod(textFileWords);
+                    ReadFile();
                     
                     
                     break;
-
                     case 4:
-                    StartSequence();
+                    textFileWords = ReadFile();
+                    StartSequence(textFileWords);
+                    
+
                         break;
                 }
             
