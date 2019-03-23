@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
@@ -14,7 +15,7 @@ namespace lab03_WordGuessGame
 
         public static void Main(string[] args)
         {
-            string[] startingWords = { "Biscuit", "Alpha", "Tarantula", "Rockstar", "Cookies", "Doggo" };
+            string[] startingWords = { "Biscuit" };
             WriteToFileMethod(startingWords);
             StartSequence(startingWords);
 
@@ -111,7 +112,8 @@ namespace lab03_WordGuessGame
         }
         public static void PlayGame(string word)
         {
-            int guessCounter = 0;
+            int correctGuessCounter = 0;
+            int incorrectGuess = 0;
             bool isGuessing = true;
             string mysteryWord = word;
             char[] splitWord = mysteryWord.ToCharArray();
@@ -121,21 +123,25 @@ namespace lab03_WordGuessGame
             {
                 Console.Write($"  {value}  ");
             }
-            char guess = Convert.ToChar(Console.ReadLine());
-            
+            do
+            {
+                char guess = Convert.ToChar(Console.ReadLine());
+
                 bool wasCorrect = CorrectGuess(guess, splitWord);
                 if (wasCorrect == true)
                 {
                     //replace blank with letter
-                    Console.WriteLine("you guessed the correct letter!");
-                    guessCounter++;
+                    Console.WriteLine("you guessed the correct " +
+                        "letter!");
+                    correctGuessCounter++;
                 }
                 else if (wasCorrect == false)
                 {
                     Console.WriteLine("you guessed the wrong letter!");
                     //output message and guess number
-                    guessCounter++;
+                    incorrectGuess++;
                 }
+            } while (correctGuessCounter <  26);
             
 
 
@@ -144,14 +150,13 @@ namespace lab03_WordGuessGame
         public static bool CorrectGuess(char letterGuess, char[] word)
         {
             bool wasCorrect = true;
-            
             for (int i = 0; i < word.Length; i++)
             {
-                if (letterGuess == word[i])
+                if(word[i] == letterGuess)
                 {
                     wasCorrect = true;
                 }
-                else
+                else if (word[i] != letterGuess)
                 {
                     wasCorrect = false;
                 }
