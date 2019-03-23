@@ -8,58 +8,66 @@ namespace lab03_WordGuessGame
 {
     public class Program
     {
-        
+
         public static string path = ("../../../savedWords.txt");
-        public static bool gameRunning = true;
+        
 
         public static void Main(string[] args)
         {
             string[] startingWords = { "Biscuit", "Alpha", "Tarantula", "Rockstar", "Cookies", "Doggo" };
-            StartSequence(startingWords);
-            
             WriteToFileMethod(startingWords);
+            StartSequence(startingWords);
+
         }
         public static void StartSequence(string[] array)
         {
             string[] startingWords = array;
-                
-            do
-            {
-               
-                
+            bool menuLoading = true;
+
                 Console.WriteLine("Welcome to the Word Guess Game!");
                 Console.WriteLine("1. Play game");
                 Console.WriteLine("2. Admin");
                 Console.WriteLine("3. Exit Program");
                 int decision = Convert.ToInt32(Console.ReadLine());
+                if(decision == 1)
+                {
+              
+                    string[] textFileWords = ReadFile();
+                     PlayGame(RandomWordChooser(textFileWords));
+
+
+              
+                }
+
+            do
+            {
                 switch (decision)
                 {
-                    case 1:
-                        string[] textFileWords = ReadFile();
-
-                        Console.WriteLine(RandomWordChooser(textFileWords));
-
-                        break;
+                   
                     case 2:
                         AdminMenu();
+                       
                         break;
 
                     case 3:
-                        gameRunning = false;
+                        menuLoading = false;
                         break;
                 }
 
             }
-            while (gameRunning);
+            while (menuLoading);
 
         }
-        public static void WriteToFileMethod(string[] startingWords)
+        public static void WriteToFileMethod(string[] wordBank)
         {
             using (StreamWriter sw = new StreamWriter(path))
             {
-                foreach (string value in startingWords)
+                bool check = true;
+                foreach (string value in wordBank)
                 {
-                    sw.WriteLine(value);
+                    if (check != String.IsNullOrEmpty(value)) {
+                        sw.WriteLine(value);
+                    }
                 }
 
             }
@@ -69,13 +77,13 @@ namespace lab03_WordGuessGame
             string[] textFileWords;
             using (StreamReader sr = new StreamReader(path))
             {
-               textFileWords = File.ReadAllLines(path);
+                textFileWords = File.ReadAllLines(path);
 
-               
+
             }
             return textFileWords;
-            
-          
+
+
         }
         public static void ReadFileAdminMode()
         {
@@ -101,9 +109,66 @@ namespace lab03_WordGuessGame
 
 
         }
-        public static void GuessCheck(char guessedChar)
+        public static void PlayGame(string word)
         {
+            int guessCounter = 0;
+            bool isGuessing = true;
+            string mysteryWord = word;
+            char[] splitWord = mysteryWord.ToCharArray();
+            char[] hiddenLetters = HideLetters(splitWord);
+            Console.WriteLine("Guess 1 letter at a time to guess the random word!");
+            foreach(char value in hiddenLetters)
+            {
+                Console.Write($"  {value}  ");
+            }
+            char guess = Convert.ToChar(Console.ReadLine());
+            
+                bool wasCorrect = CorrectGuess(guess, splitWord);
+                if (wasCorrect == true)
+                {
+                    //replace blank with letter
+                    Console.WriteLine("you guessed the correct letter!");
+                    guessCounter++;
+                }
+                else if (wasCorrect == false)
+                {
+                    Console.WriteLine("you guessed the wrong letter!");
+                    //output message and guess number
+                    guessCounter++;
+                }
+            
 
+
+
+        }
+        public static bool CorrectGuess(char letterGuess, char[] word)
+        {
+            bool wasCorrect = true;
+            
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (letterGuess == word[i])
+                {
+                    wasCorrect = true;
+                }
+                else
+                {
+                    wasCorrect = false;
+                }
+            }
+            return wasCorrect;
+            
+        }
+        public static char[] HideLetters(char[] array)
+        {
+            char[] newArray = array;
+
+            for (int i = 0; i < newArray.Length; i++)
+            {
+                newArray[i] = '_';
+            }
+            return newArray;
+            
         }
         public static string RandomWordChooser(string[] array)
         {
@@ -119,7 +184,7 @@ namespace lab03_WordGuessGame
         public static string[] RemoveWord(string[] array)
         {
             string input = Console.ReadLine();
-            string[] textFileWords = new string[array.Length ];
+            string[] textFileWords = new string[array.Length];
             bool flag = false;
             for(int i = 0; i < array.Length; i++)
             {
@@ -171,6 +236,7 @@ namespace lab03_WordGuessGame
                     Console.WriteLine("Please type the word you would like to REMOVE from the word bank");
                     string[] currentArray = ReadFile();
                     string[] textFileWords = RemoveWord(currentArray);
+                    
                     DeleteFile();
                     WriteToFileMethod(textFileWords);
                     ReadFile();
