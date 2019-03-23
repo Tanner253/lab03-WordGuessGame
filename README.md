@@ -37,7 +37,7 @@ Then select and open ```WordGue.sln```
 ![on program run this is what the user will see](/assets/capture1.JPG)
 ##### Using the Application
 ![you can add words, delete words, view what words there are](/assets/capture2.JPG)
-####guessing
+
 ![play game!](/assets/capture3.JPG)
 ##### Application End
 ![how functionality works in game](/assets/capture4.JPG)
