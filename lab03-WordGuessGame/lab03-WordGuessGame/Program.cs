@@ -15,7 +15,7 @@ namespace lab03_WordGuessGame
 
         public static void Main(string[] args)
         {
-            string[] startingWords = { "Biscuit" };
+            string[] startingWords = { "Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" };
             WriteToFileMethod(startingWords);
             StartSequence(startingWords);
 
@@ -29,34 +29,41 @@ namespace lab03_WordGuessGame
                 Console.WriteLine("1. Play game");
                 Console.WriteLine("2. Admin");
                 Console.WriteLine("3. Exit Program");
-                int decision = Convert.ToInt32(Console.ReadLine());
-                if(decision == 1)
-                {
-              
-                    string[] textFileWords = ReadFile();
-                     PlayGame(RandomWordChooser(textFileWords));
-
-
-              
-                }
-
-            do
+            try
             {
-                switch (decision)
+                int decision = Convert.ToInt32(Console.ReadLine());
+                if (decision == 1)
                 {
-                   
-                    case 2:
-                        AdminMenu();
-                       
-                        break;
 
-                    case 3:
-                        menuLoading = false;
-                        break;
+                    string[] textFileWords = ReadFile();
+                    PlayGame(RandomWordChooser(textFileWords));
+
+
+
                 }
 
+                do
+                {
+                    switch (decision)
+                    {
+
+                        case 2:
+                            AdminMenu();
+
+                            break;
+
+                        case 3:
+                            menuLoading = false;
+                            break;
+                    }
+
+                }
+                while (menuLoading);
             }
-            while (menuLoading);
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
         }
         public static void WriteToFileMethod(string[] wordBank)
@@ -216,46 +223,51 @@ namespace lab03_WordGuessGame
             Console.WriteLine("3. Remove a word from Word Bank");
             Console.WriteLine("4. Main Menu");
             int decision = Convert.ToInt32(Console.ReadLine());
-            
-           
+
+            try
+            {
 
                 switch (decision)
                 {
                     case 1:
-                    Console.WriteLine("These are the current words in the Word Bank: ");
-                    ReadFileAdminMode();
-                        
+                        Console.WriteLine("These are the current words in the Word Bank: ");
+                        ReadFileAdminMode();
+
                         break;
 
                     case 2:
-                    Console.WriteLine("You've selected to ADD a word to the Word Bank");
-                    Console.WriteLine("");
-                    Console.WriteLine("Please type the word you would like to ADD to the word bank");
-                    UpdateWordBank(Console.ReadLine());
+                        Console.WriteLine("You've selected to ADD a word to the Word Bank");
+                        Console.WriteLine("");
+                        Console.WriteLine("Please type the word you would like to ADD to the word bank");
+                        UpdateWordBank(Console.ReadLine());
 
                         break;
 
                     case 3:
-                    Console.WriteLine("You've selected to REMOVE a word to the Word Bank");
-                    Console.WriteLine("");
-                    Console.WriteLine("Please type the word you would like to REMOVE from the word bank");
-                    string[] currentArray = ReadFile();
-                    string[] textFileWords = RemoveWord(currentArray);
-                    
-                    DeleteFile();
-                    WriteToFileMethod(textFileWords);
-                    ReadFile();
-                    
-                    
-                    break;
+                        Console.WriteLine("You've selected to REMOVE a word to the Word Bank");
+                        Console.WriteLine("");
+                        Console.WriteLine("Please type the word you would like to REMOVE from the word bank");
+                        string[] currentArray = ReadFile();
+                        string[] textFileWords = RemoveWord(currentArray);
+
+                        DeleteFile();
+                        WriteToFileMethod(textFileWords);
+                        ReadFile();
+
+
+                        break;
                     case 4:
-                    textFileWords = ReadFile();
-                    StartSequence(textFileWords);
-                    
+                        textFileWords = ReadFile();
+                        StartSequence(textFileWords);
+
 
                         break;
                 }
-            
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             
         }
         
