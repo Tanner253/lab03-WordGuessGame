@@ -148,16 +148,18 @@ namespace lab03_WordGuessGame
             string mysteryWord = word;
             char[] splitWord = mysteryWord.ToCharArray();
             char[] hiddenLetters = HideLetters(splitWord);
+            string chosenLetters = "";
             Console.WriteLine("Guess 1 letter at a time to guess the random word!");
             foreach(char value in hiddenLetters)
             {
                 Console.Write($"  {value}  ");
-            }
+            } 
             do
             {
                 char guess = Convert.ToChar(Console.ReadLine());
-
+                chosenLetters = $"{chosenLetters},  {guess.ToString()}";
                 bool wasCorrect = CorrectGuess(guess, splitWord);
+                Console.WriteLine($"The Letters you have guessed are: {chosenLetters}");
                 if (wasCorrect == true)
                 {
                     //replace blank with letter
@@ -185,18 +187,16 @@ namespace lab03_WordGuessGame
         /// <returns>true or false</returns>
         public static bool CorrectGuess(char letterGuess, char[] word)
         {
-            bool wasCorrect = true;
+            bool wasCorrect = false;
             for (int i = 0; i < word.Length; i++)
             {
                 if(word[i] == letterGuess)
                 {
                     wasCorrect = true;
                 }
-                else if (word[i] != letterGuess)
-                {
-                    wasCorrect = false;
-                }
+               
             }
+
             return wasCorrect;
             
         }
