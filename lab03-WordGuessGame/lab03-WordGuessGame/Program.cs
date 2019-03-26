@@ -15,7 +15,7 @@ namespace lab03_WordGuessGame
         //"Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" 
         public static void Main(string[] args)
         {
-            string[] startingWords = { "Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" };
+            string[] startingWords = { "Biscuit" };
             WriteToFileMethod(startingWords);
             StartSequence(startingWords);
 
@@ -147,7 +147,9 @@ namespace lab03_WordGuessGame
            
             string mysteryWord = word;
             char[] splitWord = mysteryWord.ToCharArray();
-            char[] hiddenLetters = HideLetters(splitWord);
+
+            char[] temp = mysteryWord.ToCharArray();
+            char[] hiddenLetters = HideLetters(temp);
             string chosenLetters = "";
             Console.WriteLine("Guess 1 letter at a time to guess the random word!");
             foreach(char value in hiddenLetters)
@@ -188,14 +190,18 @@ namespace lab03_WordGuessGame
         public static bool CorrectGuess(char letterGuess, char[] word)
         {
             bool wasCorrect = false;
-            for (int i = 0; i < word.Length; i++)
+            if (word.Contains(letterGuess))
+            {
+                wasCorrect = true;
+            }
+            /* for (int i = 0; i < word.Length; i++)
             {
                 if(word[i] == letterGuess)
                 {
                     wasCorrect = true;
                 }
                
-            }
+            }*/
 
             return wasCorrect;
             
