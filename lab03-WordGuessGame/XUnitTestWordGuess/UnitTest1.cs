@@ -30,11 +30,12 @@ namespace XUnitTestWordGuess
         [Fact]
         public void GuessCheck()
         {
+            char[] hidden = { '_', '_' };
             char[] temp = { 'a', 'b', 'c' };
             char tempChar = 'b';
-            Program.CorrectGuess(tempChar, temp);
+            Program.CorrectGuess(tempChar, temp, hidden);
             Assert.True(true);
         }
-        //functionality for char check against word is not working right 
+      
     }
 }

@@ -15,7 +15,7 @@ namespace lab03_WordGuessGame
         //"Biscuit", "Alpha", "Bravo", "Tango", "Roger", "unicorn" 
         public static void Main(string[] args)
         {
-            string[] startingWords = { "Biscuit" };
+            string[] startingWords = { "biscuit", "alpha", "bravo", "tango", "roger", "unicorn" };
             WriteToFileMethod(startingWords);
             StartSequence(startingWords);
 
@@ -159,19 +159,30 @@ namespace lab03_WordGuessGame
             do
             {
                 char guess = Convert.ToChar(Console.ReadLine());
+                Console.WriteLine();
                 chosenLetters = $"{chosenLetters},  {guess.ToString()}";
-                bool wasCorrect = CorrectGuess(guess, splitWord);
+                Console.WriteLine();
+                bool wasCorrect = CorrectGuess(guess, splitWord, hiddenLetters);
+                Console.Clear();
+                foreach (char value in hiddenLetters)
+                {
+                    Console.Write($"  {value}  ");
+                    
+                }
                 Console.WriteLine($"The Letters you have guessed are: {chosenLetters}");
                 if (wasCorrect == true)
-                {
+                { 
                     //replace blank with letter
                     Console.WriteLine("you guessed the correct " +
                         "letter!");
                     correctGuessCounter++;
+                    Console.WriteLine();
                 }
                 else if (wasCorrect == false)
                 {
+                    Console.WriteLine();
                     Console.WriteLine("you guessed the wrong letter!");
+
                     //output message and guess number
                     incorrectGuess++;
                 }
@@ -187,21 +198,23 @@ namespace lab03_WordGuessGame
         /// <param name="letterGuess">char</param>
         /// <param name="word">randomly displayed word</param>
         /// <returns>true or false</returns>
-        public static bool CorrectGuess(char letterGuess, char[] word)
+        public static bool CorrectGuess(char letterGuess, char[] word, char[] hiddenarray)
         {
             bool wasCorrect = false;
-            if (word.Contains(letterGuess))
+            char[] HiddenArray = hiddenarray;
+            /*if (word.Contains(letterGuess))
             {
                 wasCorrect = true;
-            }
-            /* for (int i = 0; i < word.Length; i++)
+            }*/
+             for (int i = 0; i < word.Length; i++)
             {
                 if(word[i] == letterGuess)
                 {
                     wasCorrect = true;
+                    HiddenArray[i] = word[i];
                 }
                
-            }*/
+            }
 
             return wasCorrect;
             
