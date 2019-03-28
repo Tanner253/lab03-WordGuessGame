@@ -1,6 +1,6 @@
-Biscuit
-Alpha
-Bravo
-Tango
-Roger
+biscuit
+alpha
+bravo
+tango
+roger
 unicorn

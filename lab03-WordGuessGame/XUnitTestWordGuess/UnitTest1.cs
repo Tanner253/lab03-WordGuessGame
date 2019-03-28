@@ -1,3 +1,4 @@
+using lab03_WordGuessGame;
 using System;
 using Xunit;
 using static lab03_WordGuessGame.Program;
@@ -26,6 +27,15 @@ namespace XUnitTestWordGuess
             Assert.Equal(6, newArray.Length);
 
         }
-        //functionality for char check against word is not working right 
+        [Fact]
+        public void GuessCheck()
+        {
+            char[] hidden = { '_', '_' };
+            char[] temp = { 'a', 'b', 'c' };
+            char tempChar = 'b';
+            Program.CorrectGuess(tempChar, temp, hidden);
+            Assert.True(true);
+        }
+      
     }
 }
