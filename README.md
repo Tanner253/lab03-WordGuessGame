@@ -1,4 +1,4 @@
-# lab03-WordGuessGame
+#Word Guess Game
 it's like hangman!
 #
 ------------------------------
