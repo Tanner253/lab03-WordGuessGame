@@ -1,6 +1,6 @@
 #Word Guess Game
-it's like hangman!
-#
+#it's like hangman!
+
 ------------------------------
 
 # Word guess game
